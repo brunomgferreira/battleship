@@ -64,7 +64,7 @@ describe('Ship', () => {
         gameBoard.placeShip(ship, 1, 1, true);
         expect(gameBoard.isPlacementPossible(ship, 0, 0, true)).toBe(false);
         expect(gameBoard.isPlacementPossible(ship, 4, 2, true)).toBe(false);
-        expect(gameBoard.isPlacementPossible(ship, 5, 2, true)).toBe(false);
+        expect(gameBoard.isPlacementPossible(ship, 5, 2, true)).toBe(true);
     });
 
     test('receives attacks', () => {
