@@ -1,5 +1,7 @@
 import GameBoard from "./GameBoard";
 
+const SIZE = 10;
+
 class Player {
     constructor(name) {
         this.name = name;

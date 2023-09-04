@@ -1,3 +1,6 @@
+import GameBoard from "../factories/GameBoard";
+import Player from "../factories/Player";
+
 const game = (() => {
     let round = 1;
     let isOver = false;
