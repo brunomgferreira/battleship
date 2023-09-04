@@ -57,3 +57,5 @@ const game = (() => {
     return { setUserBoard, setComputerBoard, playRound, reset, checkWinner, getIsOver };
 
 })();
+
+export default game;
