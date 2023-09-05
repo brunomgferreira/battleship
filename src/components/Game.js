@@ -6,7 +6,7 @@ const game = (() => {
     const user = new Player('user');
     const computer = new Player('computer');
     let userBoard = new GameBoard();
-    const computerBoard = new GameBoard();
+    let computerBoard = new GameBoard();
 
     const setUserBoard = (gameBoard) => {
         userBoard = gameBoard;
@@ -17,6 +17,7 @@ const game = (() => {
     };
 
     const setComputerBoard = () => {
+        computerBoard = new GameBoard();
         computerBoard.placeShipsRandomly();
     };
 
@@ -49,7 +50,6 @@ const game = (() => {
     };
 
     const reset = (newUserBoard) => {
-        round = 1;
         isOver = false;
         user.initialize();
         computer.initialize();
