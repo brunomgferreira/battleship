@@ -52,6 +52,7 @@ const StartScreen = (() => {
     const handleStartScreenInputs = () => {
         const gameBoxes = document.querySelectorAll('#start-game-board *')
         const rotateBtn = document.getElementById('rotate-btn');
+        const startGameBoard = document.getElementById('start-game-board');
 
         gameBoxes.forEach((gameBox) => {
             gameBox.addEventListener('click', (e) => {
@@ -60,50 +61,38 @@ const StartScreen = (() => {
             gameBox.addEventListener('mouseenter', (e) => {
                 startGameBoardHovering(parseInt(e.target.dataset.index));
             });
-            gameBox.addEventListener('mouseleave', (e) => {
-                updateBoard();
-            });
         });
 
         rotateBtn.addEventListener('click', (e) => {
             isVertical === true ? isVertical = false : isVertical = true;
         });
+
+        startGameBoard.addEventListener('mouseleave', (e) => {
+            updateBoard();
+        });
     };
 
     const startGameBoardHovering = (index) => {
-        const length = ship.length;
 
+        updateBoard();
+
+        const length = ship.length;
         const row = Math.floor(index / 10);
         const column = index % 10;
 
-        if (gameBoard.isPlacementPossible(ship, row, column, isVertical)) {
-            for (let i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++) {
+            let pos = index;
+            isVertical ? pos += i * 10 : pos += i;
 
-                let pos = index;
+            const gameBox = document.querySelector(`#start-game-board .game-box[data-index="${pos}"]`);
 
-                if (isVertical) pos += i * 10;
-                else pos += i;
-
-                const gameBox = document.querySelector(`#start-game-board .game-box[data-index="${pos}"]`);
+            if (gameBoard.isPlacementPossible(ship, row, column, isVertical))
                 gameBox.classList.add('possible-placement');
-            }
-        }
-        else {
-            for (let i = 0; i < length; i++) {
-                if (isVertical) {
-                    let pos = index + i * 10;
-                    if (pos > 100) return;
-                    const gameBox = document.querySelector(`#start-game-board .game-box[data-index="${pos}"]`);
-                    gameBox.classList.add('sunk-ship');
-                }
-                else {
-                    let pos = index + i;
-                    if (pos > ((row +1 ) * 10) - 1) return;
-                    const gameBox = document.querySelector(`#start-game-board .game-box[data-index="${pos}"]`);
-                    gameBox.classList.add('sunk-ship');
-                }
-            }
-        }
+
+            else if ( (pos > 100) || ((pos > (row + 1) * 10 - 1) && (!isVertical)) ) return;
+
+            else gameBox.classList.add('sunk-ship');
+        }   
     };
 
     const changeStartModalObjective = (input) => {
@@ -133,7 +122,6 @@ const StartScreen = (() => {
             else {
                 updateBoard();
                 getNextShip();
-                isVertical = false;
                 return;
             }
         }
