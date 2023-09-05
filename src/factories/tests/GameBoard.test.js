@@ -18,7 +18,7 @@ describe('Ship', () => {
             testBooleanArray[i] = [];
             for(let j = 0; j < 10; j++) {
                 testObjectArray[i][j] = null;
-                testBooleanArray[i][j] = false;
+                testBooleanArray[i][j] = null;
             }
         }
     });
