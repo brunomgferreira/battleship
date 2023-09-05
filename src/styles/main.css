@@ -130,6 +130,10 @@ body {
     gap: 25px;
 }
 
+#endScreenModal {
+    display: none;
+}
+
 .btn {
     font-size: 20px;
     /* background-color: rgb(230, 230, 230); */
