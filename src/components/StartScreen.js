@@ -9,6 +9,7 @@ const StartScreen = (() => {
     let ship = null;
     let shipName = null;
     let isVertical = false;
+    let startScreenGameBoardIndex = null;
 
     const initialize = () => {
         createShips();
@@ -16,6 +17,7 @@ const StartScreen = (() => {
         gameBoard = new GameBoard();
         loadBoard();
         handleStartScreenInputs();
+        isVertical = false;
     };
 
     const loadBoard = () => {
@@ -59,17 +61,34 @@ const StartScreen = (() => {
                 placeShips(parseInt(e.target.dataset.index));
             });
             gameBox.addEventListener('mouseenter', (e) => {
-                startGameBoardHovering(parseInt(e.target.dataset.index));
+                changeStartScreenGameBoardIndex(parseInt(e.target.dataset.index));
+                startGameBoardHovering(startScreenGameBoardIndex);
             });
         });
 
         rotateBtn.addEventListener('click', (e) => {
-            isVertical === true ? isVertical = false : isVertical = true;
+            rotateShip();
         });
 
         startGameBoard.addEventListener('mouseleave', (e) => {
             updateBoard();
         });
+
+        document.addEventListener('keydown', (e) => {
+            const keyCode = e.key;
+            const keyCodes = new Set(['r', 'R', 'Enter', 'ArrowDown', 'ArrowUp']);
+            if (!keyCodes.has(keyCode)) return;
+            rotateShip();
+            startGameBoardHovering(startScreenGameBoardIndex);
+        });
+    };
+
+    const changeStartScreenGameBoardIndex = (index) => {
+        startScreenGameBoardIndex = index;
+    };
+
+    const rotateShip = () => {
+        isVertical === true ? isVertical = false : isVertical = true;
     };
 
     const startGameBoardHovering = (index) => {
