@@ -71,6 +71,7 @@ const StartScreen = (() => {
         });
 
         startGameBoard.addEventListener('mouseleave', (e) => {
+            startScreenGameBoardIndex = null
             updateBoard();
         });
 
@@ -103,12 +104,14 @@ const StartScreen = (() => {
             let pos = index;
             isVertical ? pos += i * 10 : pos += i;
 
+            if (pos >= 100) return;
+
             const gameBox = document.querySelector(`#start-game-board .game-box[data-index="${pos}"]`);
 
             if (gameBoard.isPlacementPossible(ship, row, column, isVertical))
                 gameBox.classList.add('possible-placement');
 
-            else if ( (pos > 100) || ((pos > (row + 1) * 10 - 1) && (!isVertical)) ) return;
+            else if ((pos > (row + 1) * 10 - 1) && (!isVertical)) return;
 
             else gameBox.classList.add('sunk-ship');
         }   
@@ -139,8 +142,8 @@ const StartScreen = (() => {
                 closeStartScreenModal();
             }
             else {
-                updateBoard();
                 getNextShip();
+                startGameBoardHovering(startScreenGameBoardIndex);
                 return;
             }
         }
