@@ -1,6 +1,8 @@
 :root {
     --mainColor: #3b3b3b;
+    --secondaryColor: #b7b7b7;
     --blue: rgb(33, 66, 255);
+    --red: rgb(255, 33, 33);
 }
 
 html {
@@ -71,6 +73,18 @@ body {
     text-align: center;
     background-color: white;
     font-size: 80px;
+}
+
+.ship {
+    background-color: var(--secondaryColor);
+}
+
+.possible-placement {
+    background-color: var(--blue);
+}
+
+.sunk-ship {
+    background-color: var(--red);
 }
 
 /* Modal */
