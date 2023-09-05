@@ -1,5 +1,6 @@
 :root {
     --mainColor: #3b3b3b;
+    --lightBlue: rgb(0, 112, 255);
     --secondaryColor: #b7b7b7;
     --blue: rgb(33, 66, 255);
     --red: rgb(255, 33, 33);
@@ -86,6 +87,12 @@ body {
 .sunk-ship {
     background-color: var(--red);
 }
+
+.miss {
+    font-size: 25px;
+    color: var(--lightBlue);
+}
+
 
 /* Modal */
 

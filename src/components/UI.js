@@ -1,4 +1,5 @@
 import game from "./Game";
+import EndScreen from "./EndScreen";
 
 const UI = (() => {
 
@@ -12,7 +13,7 @@ const UI = (() => {
         updateUserBoard(game.getUserBoard());
         loadBoard(computerBoardUI);
         updateComputerBoard(game.getComputerBoard());
-        // handleUIInputs();
+        handleUIInputs();
     };
 
     const loadBoard = (UIBoard) => {
@@ -30,10 +31,11 @@ const UI = (() => {
                 const gameBox = document.querySelector(`#${userBoardID} .game-box[data-index="${index}"]`);
                 gameBox.classList = 'game-box';
                 if (gameBoard.missedShots[row][column] === false) {
-                    gameBox.classList.add('hit');
+                    gameBox.classList.add('sunk-ship');
                 }
                 else if (gameBoard.missedShots[row][column] === true) {
                     gameBox.classList.add('miss');
+                    gameBox.innerHTML = '&#9673;';
                 }
                 else if (gameBoard.board[row][column]) {
                     gameBox.classList.add('ship');
@@ -49,10 +51,11 @@ const UI = (() => {
                 const gameBox = document.querySelector(`#${computerBoardID} .game-box[data-index="${index}"]`);
                 gameBox.classList = 'game-box';
                 if (gameBoard.missedShots[row][column] === false) {
-                    gameBox.classList.add('hit');
+                    gameBox.classList.add('sunk-ship');
                 }
                 else if (gameBoard.missedShots[row][column] === true) {
                     gameBox.classList.add('miss');
+                    gameBox.innerHTML = '&#9673;';
                 }
                 /* else if (gameBoard.board[row][column]) {
                     gameBox.classList.add('ship');
@@ -61,38 +64,33 @@ const UI = (() => {
         }
     }
 
-    const handleStartScreenInputs = () => {
-        const gameBoxes = document.querySelectorAll('#start-game-board *')
-        const rotateBtn = document.getElementById('rotate-btn');
-        const startGameBoard = document.getElementById('start-game-board');
+    const updateBothBoards = () => {
+        updateUserBoard(game.getUserBoard());
+        updateComputerBoard(game.getComputerBoard());
+    }
 
-        gameBoxes.forEach((gameBox) => {
+    const handleUIInputs = () => {
+        const computerGameBoxes = document.querySelectorAll(`#${computerBoardID} *`)
+
+        computerGameBoxes.forEach((gameBox) => {
             gameBox.addEventListener('click', (e) => {
-                placeShips(parseInt(e.target.dataset.index));
+                handleGameBoxInput(e);
             });
-            gameBox.addEventListener('mouseenter', (e) => {
-                changeStartScreenGameBoardIndex(parseInt(e.target.dataset.index));
-                startGameBoardHovering(startScreenGameBoardIndex);
-            });
-        });
-
-        rotateBtn.addEventListener('click', (e) => {
-            rotateShip();
-        });
-
-        startGameBoard.addEventListener('mouseleave', (e) => {
-            startScreenGameBoardIndex = null
-            updateBoard();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            const keyCode = e.key;
-            const keyCodes = new Set(['r', 'R', 'Enter', 'ArrowDown', 'ArrowUp']);
-            if (!keyCodes.has(keyCode)) return;
-            rotateShip();
-            startGameBoardHovering(startScreenGameBoardIndex);
         });
     };
+
+    const handleGameBoxInput = (e) => {
+        const index = parseInt(e.target.dataset.index);
+        const row = Math.floor(index / 10);
+        const column = index % 10;
+        game.playRound(row, column);
+        updateBothBoards();
+        game.checkWinner();
+
+        if (game.getIsOver()) {
+            EndScreen.openEndScreenModal()
+        }
+    }
 
     return { initialize, updateUserBoard, updateComputerBoard };
 })();

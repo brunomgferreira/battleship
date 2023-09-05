@@ -2,7 +2,6 @@ import GameBoard from "../factories/GameBoard";
 import Player from "../factories/Player";
 
 const game = (() => {
-    let round = 1;
     let isOver = false;
     const user = new Player('user');
     const computer = new Player('computer');
@@ -26,18 +25,12 @@ const game = (() => {
     }
 
     const playRound = (row = null, column = null) => {
-        if(getCurrentPlayer() === 'computer') {
+        if(row === null && column === null) {
             computer.randomAttack(userBoard);
         }
-        else {
-            if (!user.attack(row, column, computerBoard))
-                return;
+        else if (user.attack(row, column, computerBoard)){
+            playRound();
         }
-        round++;
-    };
-
-    const getCurrentPlayer = () => {
-        return round % 2 === 1 ? user : computer;
     };
 
     const checkWinner = () => {
