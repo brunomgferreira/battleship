@@ -16,7 +16,7 @@ class GameBoard {
             this.missedShots[i] = [];
             for (let j = 0; j < SIZE; j++) {
                 this.board[i][j] = null;
-                this.missedShots[i][j] = false;
+                this.missedShots[i][j] = null;
             }
         }
     }
@@ -163,6 +163,7 @@ class GameBoard {
             }
 
             this.board[row][column].hit(hitIndex);
+            this.missedShots[row][column] = false;
             return true;
         }
         else {
