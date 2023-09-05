@@ -1,6 +1,7 @@
 import GameBoard from "../factories/GameBoard";
 import Ship from "../factories/Ship";
 import game from "./Game";
+import UI from "./UI";
 
 const StartScreen = (() => {
 
@@ -138,7 +139,6 @@ const StartScreen = (() => {
 
         if (gameBoard.placeShip(ship, row, column, isVertical)) {
             if (ships.length === 0) {
-                game.setUserBoard(gameBoard);
                 closeStartScreenModal();
             }
             else {
@@ -158,6 +158,9 @@ const StartScreen = (() => {
     const closeStartScreenModal = () => {
         const placeShipsModal = document.getElementById('placeShipsModal');
         placeShipsModal.style.display = 'none';
+        game.setUserBoard(gameBoard);
+        game.setComputerBoard();
+        UI.initialize();
     };
 
     return { placeShips, initialize, openStartScreenModal };

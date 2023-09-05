@@ -13,9 +13,17 @@ const game = (() => {
         userBoard = gameBoard;
     };
 
+    const getUserBoard = () => {
+        return userBoard;
+    };
+
     const setComputerBoard = () => {
         computerBoard.placeShipsRandomly();
     };
+
+    const getComputerBoard = () => {
+        return computerBoard;
+    }
 
     const playRound = (row = null, column = null) => {
         if(getCurrentPlayer() === 'computer') {
@@ -57,7 +65,7 @@ const game = (() => {
         setComputerBoard();
     };
 
-    return { setUserBoard, setComputerBoard, playRound, reset, checkWinner, getIsOver };
+    return { setUserBoard, getUserBoard, setComputerBoard, getComputerBoard, playRound, reset, checkWinner, getIsOver };
 
 })();
 
