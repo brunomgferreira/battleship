@@ -26,6 +26,9 @@ describe('Player', () => {
         expect(player).toEqual({
             name: 'p1',
             alreadyHitCoords: testBooleanArray,
+            tracker: { 
+                isVertical: null,
+                damagedShipCords: [] }            
         });
     });
 

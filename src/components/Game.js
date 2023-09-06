@@ -27,7 +27,7 @@ const game = (() => {
 
     const playRound = (row = null, column = null) => {
         if(row === null && column === null) {
-            computer.randomAttack(userBoard);
+            computer.computerAttack(userBoard);
         }
         else if (user.attack(row, column, computerBoard)){
             playRound();
