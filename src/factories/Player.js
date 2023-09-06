@@ -117,7 +117,7 @@ class Player {
         let row = Math.floor(Math.random() * 10);
         let column = Math.floor(Math.random() * 10);
 
-        while (this.alreadyHitCoords[row][column]) {
+        while (this.alreadyHitCoords[row][column] || (row % 2 === 0 && column % 2 === 1) || (row % 2 === 1 && column % 2 === 0)) {
             row = Math.floor(Math.random() * 10);
             column = Math.floor(Math.random() * 10);
         }
