@@ -40,7 +40,6 @@ class Player {
         }
         else if (this.tracker.damagedShipCords.length === 1){ 
             for (let i = 0; i < adjacentsCoord.length; i++) {
-                console.log('bbbb');
                 const row = this.tracker.damagedShipCords[0][0] + adjacentsCoord[i][0];
                 const column = this.tracker.damagedShipCords[0][1] + adjacentsCoord[i][1];
                 if (!this.isCoordsValid(row, column)) continue;
@@ -58,7 +57,7 @@ class Player {
         }
         else if (this.tracker.isVertical) {
             for (let i = 0; i < this.tracker.damagedShipCords.length; i++) {
-                for (let j = 2; j < 2; j++) {
+                for (let j = 0; j < 2; j++) {
                     const row = this.tracker.damagedShipCords[i][0] + adjacentsCoord[j][0];
                     const column = this.tracker.damagedShipCords[i][1] + adjacentsCoord[j][1];
                     if (!this.isCoordsValid(row, column)) continue;
@@ -79,7 +78,6 @@ class Player {
                 for (let j = 2; j < adjacentsCoord.length; j++) {
                     const row = this.tracker.damagedShipCords[i][0] + adjacentsCoord[j][0];
                     const column = this.tracker.damagedShipCords[i][1] + adjacentsCoord[j][1];
-                    console.log([row,column]);
                     if (!this.isCoordsValid(row, column)) continue;
                     if (this.attack(row, column, gameBoard)) {
                         if (gameBoard.board[row][column] && gameBoard.board[row][column].isSunk()) {
