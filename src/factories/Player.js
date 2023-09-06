@@ -23,7 +23,7 @@ class Player {
 
         this.alreadyHitCoords[row][column] = true;
         if (gameBoard.receiveAttack(row, column)){
-            
+            this.setHitCoords(gameBoard);
         }
         return true;
     }
@@ -41,6 +41,17 @@ class Player {
 
         this.alreadyHitCoords[row][column] = true;
         gameBoard.receiveAttack(row, column);
+    }
+
+    setHitCoords(gameBoard) {
+        for (let row = 0; row < 10; row++) {
+            for (let column = 0; column < 10; column++) {
+                if (gameBoard.missedShots[row][column] === null) 
+                    this.alreadyHitCoords[row][column] = false;
+                else
+                    this.alreadyHitCoords[row][column] = true;
+            }
+        }
     }
 }
 

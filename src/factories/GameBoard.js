@@ -170,6 +170,7 @@ class GameBoard {
 
             this.board[row][column].hit(hitIndex);
             this.missedShots[row][column] = false;
+            this.isShipSunk(row, column);
             return true;
         }
         else {
@@ -195,7 +196,30 @@ class GameBoard {
     }
 
     isShipSunk(row, column) {
-        
+        if(!this.board[row][column].isSunk()) return false;
+
+        const x = this.board[row][column].row;
+        const y = this.board[row][column].column;
+        const length = this.board[row][column].length;
+        if(this.board[row][column].isVertical) {
+            for (let i = -1; i <= length; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (x + i < 0 || x + i > 9 || y + j < 0 || y + j > 9) continue;
+                    if(this.missedShots[x+i][y+j] === null)
+                        this.missedShots[x+i][y+j] = true;
+                }
+            }
+        }
+        else {
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= length; j++) {
+                    if (x + i < 0 || x + i > 9 || y + j < 0 || y + j > 9) continue;
+                    if(this.missedShots[x+i][y+j] === null)
+                        this.missedShots[x+i][y+j] = true;
+                }
+            }
+        }
+        return true;
     }
 }
 

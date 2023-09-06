@@ -1,7 +1,7 @@
 import GameBoard from '../GameBoard'
 import Ship from '../Ship'
 
-describe('Ship', () => {
+describe('GameBoard', () => {
     let gameBoard = new GameBoard();
     let ship = new Ship(3);
     let testObjectArray = [];
