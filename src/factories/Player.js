@@ -22,7 +22,9 @@ class Player {
         if (this.alreadyHitCoords[row][column]) return false;
 
         this.alreadyHitCoords[row][column] = true;
-        gameBoard.receiveAttack(row, column);
+        if (gameBoard.receiveAttack(row, column)){
+            
+        }
         return true;
     }
 

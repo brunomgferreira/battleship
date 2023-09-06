@@ -6,17 +6,26 @@ describe('Player', () => {
     let player = new Player('p1');
     let gameBoard = new GameBoard();
     let ship = new Ship(3);
+    let testBooleanArray = []
 
     beforeEach(() => {
         player = new Player('p1');
         gameBoard = new GameBoard();
         ship = new Ship(3);
+        testBooleanArray = [];
+
+        for(let i = 0; i < 10; i++) {
+            testBooleanArray[i] = [];
+            for(let j = 0; j < 10; j++) {
+                testBooleanArray[i][j] = false;
+            }
+        }
     });
 
     test('creates and initializes a player', () => {
         expect(player).toEqual({
             name: 'p1',
-            alreadyHitCoords: [],
+            alreadyHitCoords: testBooleanArray,
         });
     });
 

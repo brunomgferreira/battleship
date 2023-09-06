@@ -3,6 +3,9 @@ class Ship {
     constructor(length) {
         this.length = length;
         this.hits = [];
+        this.row = null;
+        this.column = null;
+        this.isVertical = null;
     }
 
     hit(position) {
@@ -13,6 +16,15 @@ class Ship {
 
     isSunk() {
         return (this.hits.length === this.length);
+    }
+
+    setCoords(row, column) {
+        this.row = row;
+        this.column = column;
+    }
+
+    setIsVertical(isVertical) {
+        this.isVertical = isVertical;
     }
 }
 

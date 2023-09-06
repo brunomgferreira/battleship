@@ -23,7 +23,9 @@ class GameBoard {
 
     placeShip(ship, row, column, isVertical) {
         if(!this.isPlacementPossible(ship, row, column, isVertical)) return false;
-
+        
+        ship.setCoords(row, column);
+        ship.setIsVertical(isVertical);
         if(isVertical) {
             for (let i = 0; i < ship.length; i++) {
                 this.board[row + i][column] = ship;
@@ -56,8 +58,12 @@ class GameBoard {
             const column = Math.floor(Math.random() * SIZE);
             const isVertical = Math.floor(Math.random() * 2) === 1 ? true : false;
 
-            if (this.placeShip(ships[successfulPlacements], row, column, isVertical))
+            if (this.placeShip(ships[successfulPlacements], row, column, isVertical)) {
+                ships[successfulPlacements].setCoords(row, column);
+                ships[successfulPlacements].setIsVertical(isVertical);
                 successfulPlacements++;
+            }
+                
         }
     }
 
@@ -186,6 +192,10 @@ class GameBoard {
         }
         if(isBoardEmpty) return false;
         return true;
+    }
+
+    isShipSunk(row, column) {
+        
     }
 }
 
