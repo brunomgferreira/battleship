@@ -33,7 +33,7 @@ class Player {
     }
 
     computerAttack(gameBoard) {
-        const adjacentsCoord = [[-1,0], [1,0], [0,-1], [0,1]];
+        const adjacentsCoord = [[-1,0], [0,-1], [1,0], [0,1]];
         if (this.tracker.damagedShipCords.length === 0) {
             this.randomAttack(gameBoard);
             return;
@@ -57,7 +57,7 @@ class Player {
         }
         else if (this.tracker.isVertical) {
             for (let i = 0; i < this.tracker.damagedShipCords.length; i++) {
-                for (let j = 0; j < 2; j++) {
+                for (let j = 0; j < 4; j+=2) {
                     const row = this.tracker.damagedShipCords[i][0] + adjacentsCoord[j][0];
                     const column = this.tracker.damagedShipCords[i][1] + adjacentsCoord[j][1];
                     if (!this.isCoordsValid(row, column)) continue;
@@ -75,7 +75,7 @@ class Player {
         }
         else {
             for (let i = 0; i < this.tracker.damagedShipCords.length; i++) {
-                for (let j = 2; j < adjacentsCoord.length; j++) {
+                for (let j = 1; j < 4; j+=2) {
                     const row = this.tracker.damagedShipCords[i][0] + adjacentsCoord[j][0];
                     const column = this.tracker.damagedShipCords[i][1] + adjacentsCoord[j][1];
                     if (!this.isCoordsValid(row, column)) continue;
