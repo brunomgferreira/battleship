@@ -52,10 +52,24 @@ const StartScreen = (() => {
         ships = [ ['carrier', carrier], ['battleship', battleship], ['destroyer', destroyer], ['submarine', submarine], ['patrol boat', patrolBoat] ];
     };
 
-    const handleStartScreenInputs = () => {
-        const gameBoxes = document.querySelectorAll('#start-game-board *')
+    const handleRotateBtn = () => {
         const rotateBtn = document.getElementById('rotate-btn');
-        const startGameBoard = document.getElementById('start-game-board');
+        
+        rotateBtn.addEventListener('click', (e) => {
+            rotateShip();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const keyCode = e.key;
+            const keyCodes = new Set(['r', 'R', 'Enter', 'ArrowDown', 'ArrowUp']);
+            if (!keyCodes.has(keyCode)) return;
+            rotateShip();
+            startGameBoardHovering(startScreenGameBoardIndex);
+        });
+    };
+
+    const handleStartScreenInputs = () => {
+        const gameBoxes = document.querySelectorAll('#start-game-board *');
 
         gameBoxes.forEach((gameBox) => {
             gameBox.addEventListener('click', (e) => {
@@ -66,22 +80,13 @@ const StartScreen = (() => {
                 startGameBoardHovering(startScreenGameBoardIndex);
             });
         });
+    };
 
-        rotateBtn.addEventListener('click', (e) => {
-            rotateShip();
-        });
-
+    const handleStartGameBoard = () => {
+        const startGameBoard = document.getElementById('start-game-board');
         startGameBoard.addEventListener('mouseleave', (e) => {
             startScreenGameBoardIndex = null
             updateBoard();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            const keyCode = e.key;
-            const keyCodes = new Set(['r', 'R', 'Enter', 'ArrowDown', 'ArrowUp']);
-            if (!keyCodes.has(keyCode)) return;
-            rotateShip();
-            startGameBoardHovering(startScreenGameBoardIndex);
         });
     };
 
@@ -163,7 +168,7 @@ const StartScreen = (() => {
         UI.initialize();
     };
 
-    return { placeShips, initialize, openStartScreenModal };
+    return { placeShips, initialize, openStartScreenModal, handleRotateBtn , handleStartGameBoard};
 })();
 
 export default StartScreen;

@@ -1,5 +1,8 @@
 import './styles/main.css';
 import StartScreen from './components/StartScreen';
-import Player from "./factories/Player";
+import EndScreen from './components/EndScreen';
 
 StartScreen.initialize();
+StartScreen.handleRotateBtn();
+StartScreen.handleStartGameBoard();
+EndScreen.handleEndScreenInputs();

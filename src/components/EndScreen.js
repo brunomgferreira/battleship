@@ -7,8 +7,6 @@ const EndScreen = (() => {
     const openEndScreenModal = () => {
         const endScreenModal = document.getElementById('endScreenModal');
         endScreenModal.style.display = 'flex';
-        handleEndScreenInputs();
-        // initialize();
     };
 
     const handleEndScreenInputs = () => {
@@ -31,7 +29,7 @@ const EndScreen = (() => {
         endScreenModal.style.display = 'none';
     };
     
-    return { openEndScreenModal, changeEndScreenTextInfo};
+    return { openEndScreenModal, changeEndScreenTextInfo, handleEndScreenInputs};
 })();
 
 export default EndScreen;
