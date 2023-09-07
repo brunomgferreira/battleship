@@ -21,12 +21,17 @@ const EndScreen = (() => {
         });
     };
 
+    const changeEndScreenTextInfo = (input) => {
+        const endScreenTextInfo = document.getElementById('end-screen-text-info');
+        endScreenTextInfo.textContent = input;
+    }
+
     const closeEndScreenModal = () => {
         const endScreenModal = document.getElementById('endScreenModal');
         endScreenModal.style.display = 'none';
     };
     
-    return { openEndScreenModal};
+    return { openEndScreenModal, changeEndScreenTextInfo};
 })();
 
 export default EndScreen;

@@ -1,5 +1,6 @@
 import GameBoard from "../factories/GameBoard";
 import Player from "../factories/Player";
+import EndScreen from "./EndScreen";
 
 const game = (() => {
     let isOver = false;
@@ -30,18 +31,20 @@ const game = (() => {
             computer.computerAttack(userBoard);
         }
         else if (user.attack(row, column, computerBoard)){
-            playRound();
+            checkWinner();
+            if(!isOver)
+                playRound();
         }
     };
 
     const checkWinner = () => {
         if (userBoard.isGameOver()) {
             isOver = true;
-            console.log('YOU LOST');
+            EndScreen.changeEndScreenTextInfo('You lost !');
         }
         else if (computerBoard.isGameOver()) {
             isOver = true;
-            console.log('YOU WON');
+            EndScreen.changeEndScreenTextInfo('You won !');
         }
     };
 
